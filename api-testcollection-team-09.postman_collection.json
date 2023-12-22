@@ -1,0 +1,91 @@
+{
+	"info": {
+		"_postman_id": "38217aca-1586-42af-a68b-f61b168d388b",
+		"name": "api-testcollection-team-09",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "30365262"
+	},
+	"item": [
+		{
+			"name": "Get all students",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Succes', function(){\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"The response data length must be greater than zero\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"   \r",
+							"    pm.expect(responseData.length).to.be.greaterThan(0, \"Response data should not be empty\");\r",
+							"\r",
+							"    responseData.forEach((data)=>{\r",
+							"      pm.expect(data._id).to.be.a('string');\r",
+							"      pm.expect(data.name).to.be.a('string');\r",
+							"      pm.expect(data.age).to.be.a('number');\r",
+							"      pm.expect(data.group).to.be.a('string');\r",
+							"      pm.expect(data.__v).to.be.a('number');\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {}
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Key",
+						"value": "2TINDEVOPS",
+						"type": "text"
+					}
+				],
+				"url": "https://devops.d-ries.be/api/students"
+			},
+			"response": []
+		},
+		{
+			"name": "Get specific student",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Succes', function(){\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test('Test Yasin', function(){\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson.name).to.eql(\"Yasin Altintas\");\r",
+							"    pm.expect(responseJson.age).to.eql(23);\r",
+							"    pm.expect(responseJson.group).to.eql(\"team-09\");\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Key",
+						"value": "2TINDEVOPS",
+						"type": "text"
+					}
+				],
+				"url": "https://devops.d-ries.be/api/students/6582f0bf734b1571684dbc52"
+			},
+			"response": []
+		}
+	]
+}
